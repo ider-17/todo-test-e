@@ -1,33 +1,36 @@
 'use client';
 
-import { Duru_Sans } from "next/font/google";
 import { useState } from "react";
 
-const initialTasks = [
-  {
-    text: "Hogoo shuurdeh",
-    completed: false,
-    id: "2024-02-05 34 345"
-  },
-  {
-    text: "Aygaa ugaah",
-    completed: false,
-    id: "2024-02-05 34 345"
-  }
-];
+const initialTasks = [];
 
 export default function Home() {
   const [tasks, setTasks] = useState(initialTasks);
 
   function addTask() {
     const newTaskText = prompt("Task?");
-    const newTasks = [newTaskText, ...tasks];
+    const newTasks = [{ text: newTaskText, completed: false, id: "ksadj" }, ...tasks];
     setTasks(newTasks);
   }
-
-  function editTask() {
-    tasks[index]
+  
+  
+  function editTask(index) {
+    const updatedTaskText = prompt("Task?", tasks[index].text);
+    
+    if (updatedTaskText) {
+      const clonedTasks = [...tasks];
+      clonedTasks[index].text = updatedTaskText;
+      setTasks(clonedTasks);
+    }
   }
+  
+  function deleteTask(id) {
+    if (confirm("Are you sure?")) {
+      const clonedTasks = tasks.filter((task) => task.id !== id);
+      setTasks(clonedTasks);
+    }
+  }
+  
   return (
     <div>
       <button onClick={addTask}>Add</button>
@@ -39,7 +42,7 @@ export default function Home() {
           {task.text}
 
           <button onClick={() => editTask(index)}>Edit</button>
-          <button>Delete</button>
+          <button onClick={() => deleteTask(task.id)}>Delete</button>
         </div>
       ))}
     </div>
