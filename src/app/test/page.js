@@ -45,10 +45,25 @@ export default function Home() {
         }
     }
 
+    function filterAll() {
+        setTasks(tasks)
+    }
+
+    // function filterActive() {
+    //     console.log(tasks, "here")
+    //     tasks.filter([index].completed === false).map(task => {task})
+    //     }
+    // }
+
     return (
         <div>
             <input type="text" onKeyDown={handleKeyDown} value={firstName} onChange={e => setFirstName(e.target.value)} />
             <button onClick={addTask}>Add</button>
+            <div>
+                <button onClick={filterAll}>All</button>
+                {/* <button onClick={filterActive}>Active</button> */}
+                <button>Completed</button>
+            </div>
             {tasks.map((task, index) =>
                 <div key={task.id} className="task">
                     <input type="checkbox" checked={task.completed} onChange={() => toggleCompleted(index)} />
